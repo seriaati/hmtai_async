@@ -16,13 +16,12 @@ class HmtaiAPI:
     async def get_sfw_endpoints(self) -> List[str]:
         with open("endpoints.json", "r") as f:
             endpoints = json.load(f)
-        return endpoints['nsfw']
+        return endpoints["nsfw"]
 
-    
     async def get_nsfw_endpoints(self) -> List[str]:
         with open("endpoints.json", "r") as f:
             endpoints = json.load(f)
-        return endpoints['nsfw']
+        return endpoints["nsfw"]
 
     async def get(self, endpoint: str) -> Optional[str]:
         async with self.session.get(
