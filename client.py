@@ -2,15 +2,15 @@ from typing import List, Optional
 import aiohttp
 import json
 
-from models import Endpoint
-
 
 class HmtaiAPI:
-    def __init__(self):
-        self.session = aiohttp.ClientSession()
+    def __init__(self, session: aiohttp.ClientSession):
+        self.session = session
 
     async def update_endpoints(self) -> None:
-        async with self.session.get("https://hmtai.herokuapp.com/v2/endpoints") as resp:
+        async with self.session.get(
+            "https://hmtai.herokuapp.com/v2/endpoints"
+        ) as resp:
             endpoints = await resp.json()
         with open("endpoints.json", "w") as f:
             json.dump(endpoints, f, indent=4)
@@ -18,13 +18,12 @@ class HmtaiAPI:
     async def get_sfw_endpoints(self) -> List[str]:
         with open("endpoints.json", "r") as f:
             endpoints = json.load(f)
-        return endpoints['nsfw']
+        return endpoints["nsfw"]
 
-    
     async def get_nsfw_endpoints(self) -> List[str]:
         with open("endpoints.json", "r") as f:
             endpoints = json.load(f)
-        return endpoints['nsfw']
+        return endpoints["nsfw"]
 
     async def get(self, endpoint: str) -> Optional[str]:
         async with self.session.get(
