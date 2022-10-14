@@ -2,8 +2,6 @@ from typing import List, Optional
 import aiohttp
 import json
 
-from models import Endpoint
-
 
 class HmtaiAPI:
     def __init__(self):
