@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 import aiohttp
 import json
 
@@ -15,10 +15,16 @@ class HmtaiAPI:
         with open("endpoints.json", "w") as f:
             json.dump(endpoints, f, indent=4)
 
-    async def get_endpoints(self) -> Endpoint:
+    async def get_sfw_endpoints(self) -> List[str]:
         with open("endpoints.json", "r") as f:
             endpoints = json.load(f)
-        return Endpoint(**endpoints)
+        return endpoints['nsfw']
+
+    
+    async def get_nsfw_endpoints(self) -> List[str]:
+        with open("endpoints.json", "r") as f:
+            endpoints = json.load(f)
+        return endpoints['nsfw']
 
     async def get(self, endpoint: str) -> Optional[str]:
         async with self.session.get(
