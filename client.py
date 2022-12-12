@@ -4,8 +4,8 @@ import json
 
 
 class HmtaiAPI:
-    def __init__(self):
-        self.session = aiohttp.ClientSession()
+    def __init__(self, session: aiohttp.ClientSession):
+        self.session = session
 
     async def update_endpoints(self) -> None:
         async with self.session.get("https://hmtai.hatsunia.cfd/v2/endpoints") as resp:
