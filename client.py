@@ -8,7 +8,7 @@ class HmtaiAPI:
         self.session = aiohttp.ClientSession()
 
     async def update_endpoints(self) -> None:
-        async with self.session.get("https://hmtai.herokuapp.com/v2/endpoints") as resp:
+        async with self.session.get("https://hmtai.hatsunia.cfd/v2/endpoints") as resp:
             endpoints = await resp.json()
         with open("endpoints.json", "w") as f:
             json.dump(endpoints, f, indent=4)
@@ -25,7 +25,7 @@ class HmtaiAPI:
 
     async def get(self, endpoint: str) -> Optional[str]:
         async with self.session.get(
-            f"https://hmtai.herokuapp.com/v2/{endpoint}"
+            f"https://hmtai.hatsunia.cfd/v2/{endpoint}"
         ) as resp:
             data = await resp.json()
         if "url" not in data:
